@@ -16,9 +16,23 @@ class EditorArea extends React.Component {
   }
   render() {
     return(
-      <div className="editor-wrapper">
+      <div className="window" id="editor-window">
         <div class="toolbar">{'\u00A0'}<FontAwesomeIcon icon="fa-brands fa-markdown" />{'\u00A0'}Editor</div>
         <textarea id="editor">Placeholder text for editor</textarea>
+      </div>
+    )
+  }
+}
+
+class PreviewArea extends React.Component {
+  constructor(props){
+    super(props);
+  }
+  render(){
+    return(
+      <div className="window" id="preview-window">
+        <div class="toolbar">{'\u00A0'}<FontAwesomeIcon icon="fa-brands fa-html5" />{'\u00A0'}Preview</div>
+        <textarea id="preview">Placeholder text for preview</textarea>
       </div>
     )
   }
@@ -27,7 +41,9 @@ class EditorArea extends React.Component {
 function App() {
   return (
     <div className="App">
+      <h1>Markdown Previewer</h1>
       <EditorArea />
+      <PreviewArea />
     </div>
   );
 }
