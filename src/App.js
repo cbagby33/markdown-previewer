@@ -17,8 +17,8 @@ class EditorArea extends React.Component {
   render() {
     return(
       <div className="window" id="editor-window">
-        <div class="toolbar">{'\u00A0'}<FontAwesomeIcon icon="fa-brands fa-markdown" />{'\u00A0'}Editor</div>
-        <textarea id="editor">Placeholder text for editor</textarea>
+        <div className="toolbar">{'\u00A0'}<FontAwesomeIcon icon="fa-brands fa-markdown" />{'\u00A0'}Editor</div>
+        <textarea onChange={this.props.handleChange} id="editor" value={this.props.value}></textarea>
       </div>
     )
   }
@@ -31,21 +31,35 @@ class PreviewArea extends React.Component {
   render(){
     return(
       <div className="window" id="preview-window">
-        <div class="toolbar">{'\u00A0'}<FontAwesomeIcon icon="fa-brands fa-html5" />{'\u00A0'}Preview</div>
-        <textarea id="preview">Placeholder text for preview</textarea>
+        <div className="toolbar">{'\u00A0'}<FontAwesomeIcon icon="fa-brands fa-html5" />{'\u00A0'}Preview</div>
+        <textarea id="preview" value={this.props.value} ></textarea>
       </div>
     )
   }
 }
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Markdown Previewer</h1>
-      <EditorArea />
-      <PreviewArea />
-    </div>
-  );
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      input: 'Placeholder text for preview'
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(evt) {
+    this.setState({
+      input: evt.target.value
+    });
+  }
+  render() {
+    return (
+      <div className="App">
+        <h1>Markdown Previewer</h1>
+        <EditorArea handleChange={this.handleChange} value={this.state.input}/>
+        <PreviewArea value={this.state.input} />
+      </div>
+    );
+  }
 }
 
 export default App;
