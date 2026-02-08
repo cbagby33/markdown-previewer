@@ -8,6 +8,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 
+import { marked } from 'marked';
+
 library.add(fas, fab) // add library of icons 
 
 class EditorArea extends React.Component {
@@ -27,12 +29,13 @@ class EditorArea extends React.Component {
 class PreviewArea extends React.Component {
   constructor(props){
     super(props);
+    console.log(this) 
   }
   render(){
     return(
       <div className="window" id="preview-window">
         <div className="toolbar">{'\u00A0'}<FontAwesomeIcon icon="fa-brands fa-html5" />{'\u00A0'}Preview</div>
-        <textarea id="preview" value={this.props.value} ></textarea>
+        <div id="preview" dangerouslySetInnerHTML={{__html: marked.parse(this.props.value)}}></div>
       </div>
     )
   }
@@ -42,7 +45,7 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      input: 'Placeholder text for preview'
+      input: '# Welcome to my React Markdown Previewer!'
     };
     this.handleChange = this.handleChange.bind(this);
   }
