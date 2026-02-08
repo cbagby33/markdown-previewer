@@ -29,13 +29,16 @@ class EditorArea extends React.Component {
 class PreviewArea extends React.Component {
   constructor(props){
     super(props);
-    console.log(this) 
+    this.parseToHtml = this.parseToHtml.bind(this)
+  }
+  parseToHtml(html) {
+    return marked.parse(html);
   }
   render(){
     return(
       <div className="window" id="preview-window">
         <div className="toolbar">{'\u00A0'}<FontAwesomeIcon icon="fa-brands fa-html5" />{'\u00A0'}Preview</div>
-        <div id="preview" dangerouslySetInnerHTML={{__html: marked.parse(this.props.value)}}></div>
+        <div id="preview" dangerouslySetInnerHTML={{__html: this.parseToHtml(this.props.htmlToParse)}}></div>
       </div>
     )
   }
@@ -59,7 +62,7 @@ class App extends React.Component {
       <div className="App">
         <h1>Markdown Previewer</h1>
         <EditorArea handleChange={this.handleChange} value={this.state.input}/>
-        <PreviewArea value={this.state.input} />
+        <PreviewArea htmlToParse={this.state.input} />
       </div>
     );
   }
